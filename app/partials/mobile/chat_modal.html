@@ -49,14 +49,12 @@
 
     <div class="mobile_user_modal_photo_profile_wrap">
 
-      <a href="" ng-click="openPhoto(chatFull.chat_photo.id, {p: -chatFull.chat.id})" class="mobile_user_modal_image_wrap pull-left" ng-class="{disabled: !chatFull.chat.photo.photo_small}">
-        <img
-          class="mobile_user_modal_image mobile_chat_modal_image"
-          my-load-thumb
-          watch="true"
-          thumb="chatFull.thumb"
-        />
-      </a>
+      <img
+        class="mobile_user_modal_image mobile_chat_modal_image"
+        my-load-thumb
+        watch="true"
+        thumb="chatFull.thumb"
+      />
 
       <div class="mobile_user_modal_info_wrap clearfix">
         <h4 class="mobile_user_modal_header" my-chat-link="chatFull.chat.id"></h4>

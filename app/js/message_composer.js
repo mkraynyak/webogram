@@ -166,11 +166,6 @@ function EmojiTooltip (btnEl, options) {
     }
     return cancelEvent(e);
   });
-  $(document).on('mousedown', function (e) {
-    if (self.shown) {
-      self.hide();
-    }
-  });
 }
 
 EmojiTooltip.prototype.onMouseEnter = function (triggerShow) {
@@ -196,21 +191,6 @@ EmojiTooltip.prototype.onMouseLeave = function (triggerUnshow) {
   }
 };
 
-EmojiTooltip.prototype.getScrollWidth = function() {
-  var outer = $('<div>').css({
-    position: 'absolute',
-    width: 100,
-    height: 100,
-    overflow: 'scroll',
-    top: -9999
-  }).appendTo($(document.body));
-
-  var scrollbarWidth = outer[0].offsetWidth - outer[0].clientWidth;
-  outer.remove();
-
-  return scrollbarWidth;
-};
-
 
 
 EmojiTooltip.prototype.createTooltip = function () {
@@ -226,13 +206,6 @@ EmojiTooltip.prototype.createTooltip = function () {
   this.contentEl = $('.composer_emoji_tooltip_content', this.tooltip);
   this.footerEl = $('.composer_emoji_tooltip_footer', this.tooltip);
   this.settingsEl = $('.composer_emoji_tooltip_settings', this.tooltip);
-
-  var scrollWidth = this.getScrollWidth();
-  if (scrollWidth > 0) {
-    this.tooltipEl.css({
-      width: parseInt(this.tooltipEl.css('width')) + scrollWidth
-    });
-  }
 
   angular.forEach(['recent', 'smile', 'flower', 'bell', 'car', 'grid', 'stickers'], function (tabName, tabIndex) {
     var tab = $('<a class="composer_emoji_tooltip_tab composer_emoji_tooltip_tab_' + tabName + '"></a>')
@@ -390,10 +363,8 @@ EmojiTooltip.prototype.show = function () {
 };
 
 EmojiTooltip.prototype.hide = function () {
-  if (this.tooltipEl) {
-    this.tooltipEl.removeClass('composer_emoji_tooltip_shown');
-    this.btnEl.removeClass('composer_emoji_insert_btn_on');
-  }
+  this.tooltipEl.removeClass('composer_emoji_tooltip_shown');
+  this.btnEl.removeClass('composer_emoji_insert_btn_on');
   delete this.hideTimeout;
   delete this.shown;
 };
